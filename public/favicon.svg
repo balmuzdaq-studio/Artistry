@@ -5,8 +5,7 @@
       <stop offset="1" stop-color="#3DDC84"/>
     </linearGradient>
   </defs>
-  <!-- full-bleed dark background so raster icons have no transparent (white) corners -->
-  <rect width="64" height="64" fill="#0A0B0D"/>
-  <!-- "A" monogram -->
+  <!-- rounded square, dark fill, NO border stroke (that was the white outline) -->
+  <rect width="64" height="64" rx="14" fill="#0A0B0D"/>
   <path d="M32 13 51.5 52 H42.6 L38.7 43.6 H25.3 L21.4 52 H12.5 Z M32 27.4 27.9 36.5 H36.1 Z" fill="url(#a)"/>
 </svg>
