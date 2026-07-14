@@ -14,7 +14,7 @@
 - **Directions** — a use-cases section (biology, physics, geography, chemistry, engineering, art), each illustrated with its own hand-built animated SVG scene.
 - **Dual palette design system** — an "Aurora" (cyan-to-green) and a "Spectral" (violet-to-cyan) theme, driven entirely by CSS variables and switchable with a single `data-palette` flag.
 - **Responsive and accessible** — fluid type, mobile navigation, visible focus states, and full `prefers-reduced-motion` support.
-- **Performance-first loading** — code-split heavy dependencies, a GPU-composited CSS loader, self-hosted fonts, and a flash-of-unstyled-content fix. See [`docs/PERFORMANCE.md`](docs/PERFORMANCE.md).
+
 
 ## Tech Stack
 
