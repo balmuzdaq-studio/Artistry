@@ -144,66 +144,67 @@ const VideoCarousel = () => {
             ref={containerRef}
             className="mx-auto mt-10 w-full max-w-[1680px] px-5 sm:px-8 lg:px-10"
         >
-            <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+            <div className="flex w-full snap-x snap-mandatory gap-4 overflow-x-auto pb-4 sm:grid sm:grid-cols-2 sm:gap-6 sm:overflow-visible lg:grid-cols-4">
                 {slides.map((s, i) => {
                     const isActive = i === active;
                     const showLive = isActive && live && playing;
                     return (
-                        <button
-                            key={s.id}
-                            type="button"
-                            onClick={() => activate(i)}
-                            aria-pressed={isActive}
-                            className={`group relative aspect-square overflow-hidden rounded-3xl border bg-black text-left transition-all duration-300 ${
-                                isActive
-                                    ? "border-accent shadow-glow-green"
-                                    : "border-border hover:-translate-y-1 hover:border-accent/60"
-                            }`}
-                        >
-                            <video
-                                ref={(el) => (videoRefs.current[i] = el)}
-                                src={s.video}
-                                muted
-                                playsInline
-                                preload="metadata"
-                                className="absolute inset-0 h-full w-full object-cover"
-                                onLoadedData={() => markReady(i)}
-                                onLoadedMetadata={() => handleLoadedMetadata(i)}
-                                onSeeked={() => handleSeeked(i)}
-                                onPlaying={() => {
-                                    markReady(i);
-                                    if (activeRef.current === i) setLive(true);
-                                }}
-                                onEnded={handleEnded}
-                            />
-                            {/* Resting still — cross-fades out when the live video is up */}
-                            <canvas
-                                ref={(el) => (canvasRefs.current[i] = el)}
-                                aria-hidden="true"
-                                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-200 ${
-                                    showLive ? "opacity-0" : "opacity-100"
-                                }`}
-                            />
-                            {/* loading placeholder while the clip streams in */}
-                            {!ready[i] && <MediaLoader />}
-                            <span className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black/55 to-transparent" />
-                            <span className="pointer-events-none absolute left-4 top-4 text-lg font-medium text-white sm:text-xl">
-                                {s.label}
-                            </span>
-                            <span
-                                className={`pointer-events-none absolute inset-x-0 bottom-0 h-1.5 bg-black/30 transition-opacity ${
-                                    isActive ? "opacity-100" : "opacity-0"
+                        <div key={s.id} className="w-[75vw] flex-shrink-0 snap-center sm:w-auto sm:flex-shrink-1">
+                            <button
+                                type="button"
+                                onClick={() => activate(i)}
+                                aria-pressed={isActive}
+                                className={`group relative aspect-square w-full overflow-hidden rounded-3xl border bg-black text-left transition-all duration-300 ${
+                                    isActive
+                                        ? "border-accent shadow-glow-green"
+                                        : "border-border hover:-translate-y-1 hover:border-accent/60"
                                 }`}
                             >
-                                {isActive && (
-                                    <span
-                                        ref={barRef}
-                                        className="block h-full bg-main_gradient"
-                                        style={{ width: "0%" }}
-                                    />
-                                )}
-                            </span>
-                        </button>
+                                <video
+                                    ref={(el) => (videoRefs.current[i] = el)}
+                                    src={s.video}
+                                    muted
+                                    playsInline
+                                    preload="metadata"
+                                    className="absolute inset-0 h-full w-full object-cover"
+                                    onLoadedData={() => markReady(i)}
+                                    onLoadedMetadata={() => handleLoadedMetadata(i)}
+                                    onSeeked={() => handleSeeked(i)}
+                                    onPlaying={() => {
+                                        markReady(i);
+                                        if (activeRef.current === i) setLive(true);
+                                    }}
+                                    onEnded={handleEnded}
+                                />
+                                {/* Resting still — cross-fades out when the live video is up */}
+                                <canvas
+                                    ref={(el) => (canvasRefs.current[i] = el)}
+                                    aria-hidden="true"
+                                    className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-200 ${
+                                        showLive ? "opacity-0" : "opacity-100"
+                                    }`}
+                                />
+                                {/* loading placeholder while the clip streams in */}
+                                {!ready[i] && <MediaLoader />}
+                                <span className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black/55 to-transparent" />
+                                <span className="pointer-events-none absolute left-4 top-4 text-lg font-medium text-white sm:text-xl">
+                                    {s.label}
+                                </span>
+                                <span
+                                    className={`pointer-events-none absolute inset-x-0 bottom-0 h-1.5 bg-black/30 transition-opacity ${
+                                        isActive ? "opacity-100" : "opacity-0"
+                                    }`}
+                                >
+                                    {isActive && (
+                                        <span
+                                            ref={barRef}
+                                            className="block h-full bg-main_gradient"
+                                            style={{ width: "0%" }}
+                                        />
+                                    )}
+                                </span>
+                            </button>
+                        </div>
                     );
                 })}
             </div>

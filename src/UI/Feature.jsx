@@ -1,10 +1,11 @@
 const Feature = ({ icon, title, description }) => {
     return (
         <div
-            className="group flex aspect-square flex-col items-center justify-center text-center gap-4 rounded-card
-                       border border-border bg-surface/40 p-6 backdrop-blur
+            className="group flex h-full flex-col items-center justify-center gap-4 rounded-card
+                       border border-border bg-surface/40 p-6 py-8 text-center backdrop-blur
                        transition-all duration-300 hover:-translate-y-1.5
-                       hover:border-accent/60 hover:bg-surface"
+                       hover:border-accent/60 hover:bg-surface
+                       lg:h-auto lg:aspect-square lg:py-6"
         >
             <span
                 className="flex h-20 w-20 items-center justify-center rounded-2xl

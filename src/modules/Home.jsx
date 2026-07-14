@@ -9,7 +9,7 @@ const Home = () => {
 
   return (
     <section id="hero" className="relative overflow-hidden bg-grid-fade">
-      <div className="shell grid items-center gap-10 py-20 sm:py-28 lg:grid-cols-2">
+      <div className="shell grid items-center gap-10 py-10 sm:py-28 lg:grid-cols-2">
         {/* copy */}
         <div className="max-w-xl">
           <p
@@ -69,7 +69,7 @@ const Home = () => {
         {/* 3D visual */}
         <div
           id="DNA"
-          className="relative h-[340px] w-full translate-y-[16%] sm:h-[440px] lg:h-[560px]"
+          className="relative hidden h-[340px] w-full translate-y-[16%] sm:h-[440px] lg:block lg:h-[560px]"
         >
           {!loaded && <MediaLoader />}
           <Suspense fallback={<MediaLoader />}>

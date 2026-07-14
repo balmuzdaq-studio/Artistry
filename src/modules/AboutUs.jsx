@@ -19,7 +19,7 @@ const AboutUs = () => {
                     <img
                         src={images.AR}
                         alt="Artistry augmented reality preview"
-                        className="w-full max-w-sm rounded-card md:w-[40%]"
+                        className="w-3/4 max-w-[260px] self-center rounded-card sm:w-1/2 md:w-[40%] md:max-w-sm md:self-auto"
                     />
                 </div>
                 <FeaturesList />
