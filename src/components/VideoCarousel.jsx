@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { videos, icons } from "../constants/index.js";
+import { MediaLoader } from "../UI/index.js";
 
 const slides = [
     { id: 1, label: "Heart beat", video: videos.highlightHeart },
@@ -23,6 +24,11 @@ const VideoCarousel = () => {
     // `live` = the active video is actually rendering frames. Used to cross-fade
     // from the still canvas to the live video so a switch never flashes black.
     const [live, setLive] = useState(false);
+    // Per-tile: has the clip loaded enough to show a real frame yet?
+    const [ready, setReady] = useState(() => slides.map(() => false));
+
+    const markReady = (i) =>
+        setReady((r) => (r[i] ? r : r.map((v, idx) => (idx === i ? true : v))));
 
     useEffect(() => {
         activeRef.current = active;
@@ -114,6 +120,7 @@ const VideoCarousel = () => {
     const handleSeeked = (i) => {
         // A resting tile finished seeking to its poster → capture it.
         if (i !== activeRef.current) snapshot(i);
+        markReady(i);
     };
 
     const handleEnded = () => setActive((a) => (a + 1) % slides.length);
@@ -160,9 +167,11 @@ const VideoCarousel = () => {
                                 playsInline
                                 preload="metadata"
                                 className="absolute inset-0 h-full w-full object-cover"
+                                onLoadedData={() => markReady(i)}
                                 onLoadedMetadata={() => handleLoadedMetadata(i)}
                                 onSeeked={() => handleSeeked(i)}
                                 onPlaying={() => {
+                                    markReady(i);
                                     if (activeRef.current === i) setLive(true);
                                 }}
                                 onEnded={handleEnded}
@@ -175,6 +184,8 @@ const VideoCarousel = () => {
                                     showLive ? "opacity-0" : "opacity-100"
                                 }`}
                             />
+                            {/* loading placeholder while the clip streams in */}
+                            {!ready[i] && <MediaLoader />}
                             <span className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black/55 to-transparent" />
                             <span className="pointer-events-none absolute left-4 top-4 text-lg font-medium text-white sm:text-xl">
                                 {s.label}

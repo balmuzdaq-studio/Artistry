@@ -1,15 +1,8 @@
 import { Suspense, lazy, useState } from "react";
-import { CustomButton } from "../UI/index.js";
+import { CustomButton, MediaLoader } from "../UI/index.js";
 
 // Lazy-load the (heavy) Spline runtime so it never blocks first paint.
 const Spline = lazy(() => import("@splinetool/react-spline"));
-
-const HeroVisualFallback = () => (
-  <div className="relative flex h-full w-full items-center justify-center">
-    <div className="h-56 w-56 animate-float-slow rounded-full bg-main_gradient opacity-30 blur-3xl sm:h-72 sm:w-72" />
-    <div className="absolute h-40 w-40 animate-pulse rounded-full border border-accent/30" />
-  </div>
-);
 
 const Home = () => {
   const [loaded, setLoaded] = useState(false);
@@ -78,12 +71,8 @@ const Home = () => {
           id="DNA"
           className="relative h-[340px] w-full translate-y-[16%] sm:h-[440px] lg:h-[560px]"
         >
-          {!loaded && (
-            <div className="absolute inset-0">
-              <HeroVisualFallback />
-            </div>
-          )}
-          <Suspense fallback={<HeroVisualFallback />}>
+          {!loaded && <MediaLoader />}
+          <Suspense fallback={<MediaLoader />}>
             <Spline
               scene="https://prod.spline.design/N6dVUxk3qcS18Nua/scene.splinecode"
               onLoad={() => setLoaded(true)}
