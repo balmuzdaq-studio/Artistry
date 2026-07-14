@@ -1,4 +1,4 @@
-![Logo](https://raw.githubusercontent.com/BALMUZDAQ-STUDIO/Balmuzdaq-logos/refs/heads/main/Balmuz_logo_1.png)
+![Logo](https://github.com/balmuzdaq-studio/Balmuzdaq-logos/blob/main/Balmuzdaq_gradient.png)
 
 <h1 align="center">Artistry</h1>
 
